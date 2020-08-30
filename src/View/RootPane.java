@@ -14,10 +14,10 @@ public class RootPane extends BorderPane {
 
     public RootPane(Stage primaryStage) {
         menu = new Menu();
-        canvas = new PaintPane(1000,1080);
+        canvas = new PaintPane(1918,920);
         ScrollPane s1 = new ScrollPane();
         s1.setContent(canvas);
-        this.setLeft(menu);
+        this.setTop(menu);
         this.setCenter(s1);
         canvas.setOnMousePressed(new EventCliquePresse(canvas,menu));
         canvas.setOnMouseDragged(new EventSourisDragged(canvas,menu));
@@ -25,6 +25,7 @@ public class RootPane extends BorderPane {
         menu.redo().setOnAction(new RedoEvent(canvas));
         menu.undo().setOnAction(new UndoEvent(canvas));
         menu.btnImport().setOnAction(new ImgChooser(primaryStage,canvas));
+        menu.btnExport().setOnAction(new ImgExporter(primaryStage,canvas));
         s1.setStyle("-fx-focus-color: transparent;");
         this.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if(!(event.getCode() == KeyCode.CONTROL))

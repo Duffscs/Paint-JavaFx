@@ -1,8 +1,8 @@
 package View;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -36,5 +36,27 @@ public class Create {
         textField.setMaxWidth(width);
 
         return textField;
+    }
+
+    public static ToggleButton iconToggleButton(String nom, int taille, String imgUrl){
+        ToggleButton btn = new ToggleButton();
+        iconButtonBase(nom, taille, imgUrl, btn);
+        return btn;
+    }
+    public static Button iconButton(String nom, int taille, String imgUrl){
+        Button btn = new Button();
+        iconButtonBase(nom, taille, imgUrl, btn);
+        return btn;
+    }
+
+    public static ButtonBase iconButtonBase(String nom, int taille, String imgUrl, ButtonBase btn){
+        ImageView img = new ImageView("file:"+imgUrl);
+        img.setFitHeight(taille-20);
+        img.setFitWidth(taille-20);
+        btn.setGraphic(img);
+        btn.setPrefWidth(taille);
+        btn.setPrefHeight(taille);
+        btn.setTooltip(new Tooltip(nom));
+        return btn;
     }
 }

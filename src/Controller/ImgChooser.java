@@ -26,10 +26,12 @@ public class ImgChooser implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        File file = fileChooser.showOpenDialog(primaryStage);
+        FileChooser fc = new FileChooser();
+        String str = System.getProperty("user.home");
+        fc.setInitialDirectory(new File(str+"/Images"));
+        File file = fc.showOpenDialog(primaryStage);
         if(file != null){
-            final Pattern  pattern = Pattern.compile("([^*]+(\\.(?i)(jpg|png|gif|bmp))$)");
+            final Pattern  pattern = Pattern.compile("([^*]+(\\.(?i)(jpg|png|gif|bmp|svg))$)");
             final Matcher match = pattern.matcher(file.getAbsolutePath());
             Alert alert = new Alert(AlertType.ERROR);
             alert.setContentText("Erreur dans le type de fichier");

@@ -26,8 +26,8 @@ public class Dessin {
         y = Forme.posY();
         width = Math.abs(x - event.getX());
         height = Math.abs(y - event.getY());
-        double rayon = Math.max(width,height)/2;
-        gc.strokeOval(x-rayon,y-rayon, Math.max(width,height), Math.max(width,height));
+        double rayon = Math.max(width,height);
+        gc.strokeOval(x-rayon,y-rayon, rayon*2, rayon*2);
         gc.fillOval(x-rayon,y-rayon, Math.max(width,height), Math.max(width,height));
     }
 

@@ -2,10 +2,10 @@ package View;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
-public class Menu extends VBox {
+public class Menu extends HBox {
 
     private final ToggleButton btnDessiner;
     private final ToggleButton btnLigne;
@@ -21,30 +21,33 @@ public class Menu extends VBox {
     private final Button undo;
     private final Button redo;
     private final Slider slider;
-    private final Label line_width;
+    private final Label lineWidth;
     private final Button btnImport;
+    private final Button btnExport;
 
     public Menu() {
-        btnDessiner = new ToggleButton("Dessiner");
-        btnLigne = new ToggleButton("Ligne");
-        btnRectangle = new ToggleButton("Rectangle");
-        btnCercle = new ToggleButton("Cercle");
-        btnElipse = new ToggleButton("Ellipse");
-        btnEffacer = new ToggleButton("Effacer");
+        int taille = 50;
+        btnDessiner = Create.iconToggleButton("Pinceau", taille, "./icon/pinceau.png");
+        btnLigne = Create.iconToggleButton("Ligne", taille, "./icon/ligne.png");
+        btnRectangle = Create.iconToggleButton("Rectangle", taille, "./icon/rectangle.png");
+        btnCercle = Create.iconToggleButton("Cercle", taille, "./icon/cercle.png");
+        btnElipse = Create.iconToggleButton("Oval", taille, "./icon/oval.png");
+        btnEffacer = Create.iconToggleButton("Gomme", taille, "./icon/eraser.png");
         colorBordure = new ColorPicker(Color.BLACK);
         colorRemplissage = new ColorPicker(Color.TRANSPARENT);
         btnDessiner.setSelected(true);
         tools = new ToggleGroup();
         ToggleButton[] toolsArr = {btnDessiner, btnLigne, btnRectangle, btnCercle, btnElipse, btnEffacer};
-        undo = new Button("Undo");
-        redo = new Button("Redo");
         slider = new Slider();
-        line_width = Create.label("",Pos.BASELINE_LEFT);
-        btnImport = new Button("Import");
+        lineWidth = Create.label("",Pos.BASELINE_LEFT);
+        undo = Create.iconButton("Annuler", taille, "./icon/undo.png");
+        redo = Create.iconButton("Refaire", taille, "./icon/redo.png");
+        btnImport = Create.iconButton("Importer", taille, "./icon/import.png");
+        btnExport = Create.iconButton("Sauvegarder", taille, "./icon/save.png");
 
         slider.valueProperty().addListener(e->{
             double width = slider.getValue();
-            line_width.setText(String.format("Bordure : %.0f", width));
+            lineWidth.setText(String.format("Bordure : %.0f", width));
         });
         slider.setShowTickMarks(true);
         slider.setShowTickLabels(true);
@@ -52,14 +55,10 @@ public class Menu extends VBox {
 
         int largeur = 120;
         for (ToggleButton tool : toolsArr) {
-            tool.setPrefWidth(largeur);
             tool.setToggleGroup(tools);
         }
 
-        undo.setPrefWidth(largeur);
-        redo.setPrefWidth(largeur);
         slider.setPrefWidth(largeur);
-        btnImport.setPrefWidth(largeur);
 
         lblColor = Create.label("Couleur :",Pos.BASELINE_LEFT);
         colorBordure.setPrefWidth(largeur);
@@ -67,9 +66,13 @@ public class Menu extends VBox {
         colorRemplissage.setPrefWidth(largeur);
 
         this.setSpacing(10);
-        this.setPrefWidth((largeur + 30));
-        this.getChildren().addAll(btnDessiner, btnLigne, btnRectangle, btnCercle, btnElipse, btnEffacer, lblColor, colorBordure,lblRemplissage, colorRemplissage,line_width,slider,undo,redo,btnImport);
-        this.setStyle("-fx-background-color: #999999; -fx-padding: 15");
+        this.setMaxHeight((largeur + 30));
+        this.getChildren().addAll(
+                btnDessiner, btnLigne, btnRectangle, btnCercle, btnElipse, btnEffacer,
+                lblColor, colorBordure,lblRemplissage, colorRemplissage, lineWidth,slider,
+                undo,redo,btnImport,btnExport
+        );
+        this.setStyle("-fx-background-color: #999999; -fx-padding: 15;");
     }
 
     public String outil(){
@@ -116,5 +119,9 @@ public class Menu extends VBox {
 
     public Button btnImport() {
         return this.btnImport;
+    }
+
+    public Button btnExport() {
+        return this.btnExport;
     }
 }
