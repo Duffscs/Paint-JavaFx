@@ -22,8 +22,8 @@ public class EventSourisDragged implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent event) {
 
-        Dessin dessin = new Dessin(gc);
-
+        Dessin dessin = new Dessin(canvas, menu.couleurRemplissage());
+        gc.setFill(Color.TRANSPARENT);
         switch (menu.outil()){
             case "dessiner":
                 dessiner(event);
@@ -33,31 +33,20 @@ public class EventSourisDragged implements EventHandler<MouseEvent> {
                 dessiner(event);
                 break;
             case "rectangle":
-                init();
                 dessin.rectangle(event);
                 break;
             case "ellipse":
-                init();
                 dessin.elipse(event);
                 break;
             case "cercle":
-                init();
                 dessin.cercle(event);
                 break;
             case "ligne":
-                init();
                 dessin.ligne(event);
                 break;
             default:;
 
         }
-        gc.setFill(menu.couleurRemplissage());
-    }
-
-    private void init() {
-        canvas.clear();
-        canvas.load(EventCliquePresse.img);
-        gc.setFill(Color.TRANSPARENT);
     }
 
     private void dessiner(MouseEvent event) {

@@ -26,7 +26,7 @@ public class EventCliqueRelache implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent event) {
 
-        Dessin dessin = new Dessin(gc);
+        Dessin dessin = new Dessin(canvas, menu.couleurRemplissage());
         switch (menu.outil()){
             case "dessiner":
                 dessin.dessiner();

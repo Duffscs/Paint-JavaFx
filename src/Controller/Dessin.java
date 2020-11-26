@@ -1,7 +1,9 @@
 package Controller;
 
+import View.PaintPane;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 public class Dessin {
 
@@ -11,14 +13,17 @@ public class Dessin {
     private double height;
     private final GraphicsContext gc;
 
-    public Dessin(GraphicsContext gc){
-        this.gc = gc;
+    public Dessin(PaintPane canvas, Color fill){
+        this.gc = canvas.getGraphicsContext2D();
+        canvas.clear();
+        canvas.load(EventCliquePresse.img);
+        gc.setFill(fill);
     }
 
     public void elipse(MouseEvent event) {
         determinePosition(event);
-        gc.strokeOval(x,y, width, height);
         gc.fillOval(x,y,width,height);
+        gc.strokeOval(x,y, width, height);
     }
 
     public void cercle(MouseEvent event) {
@@ -27,8 +32,8 @@ public class Dessin {
         width = Math.abs(x - event.getX());
         height = Math.abs(y - event.getY());
         double rayon = Math.max(width,height);
+        gc.fillOval(x-rayon,y-rayon, rayon*2, rayon*2);
         gc.strokeOval(x-rayon,y-rayon, rayon*2, rayon*2);
-        gc.fillOval(x-rayon,y-rayon, Math.max(width,height), Math.max(width,height));
     }
 
     private void determinePosition(MouseEvent event) {
