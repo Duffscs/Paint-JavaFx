@@ -5,7 +5,7 @@ Il s'agit d'une application en JAVA-FX visant a reproduire des fonctionnalités 
 ## Réalisation :
 
 Dans ce repository vous retrouverez le code de l'application.<br />
-<p align="center"><img src="media/app.png" alt="drawing" width="50%"/></p>
+<p align="center"><img src="media/app.png" alt="drawing" width="100%"/></p>
 
 
 ## Contributeur :
